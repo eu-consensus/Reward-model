@@ -241,8 +241,8 @@ public class PreferenceDeduction {
 
     @WebMethod(operationName = "scorePreference100")
     public double scorePreference100(Y2050100score elem) {
-        Query query = em.createNamedQuery("Preference100.findAll", Preference.class);
-        List<Preference> results = query.getResultList();
+        Query query = em.createNamedQuery("Preference100.findAll", Preference100.class);
+        List<Preference100> results = query.getResultList();
         double score = 0;
         if (!results.isEmpty()) {
             if (elem.getBiodiv() <= results.get(results.size() - 1).getBiodivEnd() && elem.getBiodiv() >= results.get(results.size() - 1).getBiodivStart()) {
@@ -258,7 +258,7 @@ public class PreferenceDeduction {
                 score += 0.25;
             }
         }
-        return score * 25;
+        return score * 25 + elem.getScore();
     }
 
     @WebMethod(operationName = "setPreferece")
@@ -374,7 +374,7 @@ public class PreferenceDeduction {
     }
 
     @WebMethod(operationName = "scorePreference")
-    public double scorePreference100(Y2050 elem) {
+    public double scorePreference(Y2050 elem) {
         Query query = em.createNamedQuery("Preference.findAll", Preference.class);
         List<Preference> results = query.getResultList();
         double score = 0;
@@ -392,7 +392,7 @@ public class PreferenceDeduction {
                 score += 0.25;
             }
         }
-        return score * 25;
+        return score * 25 + elem.getScore() * 100;
     }
 
     @WebMethod(operationName = "setPrefereceByOrder")
@@ -401,14 +401,15 @@ public class PreferenceDeduction {
         List<Y2050> results = query.getResultList();
         Hashtable<String, List<orderel>> orderList = new Hashtable<>();
         int totalsample = 0;
-        String top = "";
+        String top="";
         int count = 0;
         char[] arr = new char[4];
         for (int i = 0; i < results.size(); i++) {
-
+            
 //get the majority in preference order
             if (count < results.get(i).getChosen()) {
                 count = results.get(i).getChosen();
+
                 top = results.get(i).getMyorder();
             }
 
@@ -511,7 +512,8 @@ public class PreferenceDeduction {
         }
         return score;
     }
-  @WebMethod(operationName = "setPrefereceByOrder100")
+
+    @WebMethod(operationName = "setPrefereceByOrder100")
     public PreferenceOrder setPreferenceByOrder100() {
         Query query = em.createNamedQuery("Y2050100score.findAll", Y2050100score.class);
         List<Y2050100score> results = query.getResultList();
@@ -600,8 +602,9 @@ public class PreferenceDeduction {
         return results2.get(results2.size() - 1);
 
     }
- @WebMethod(operationName = "scorePreferenceByOrder100")
-    public double scorePreferenceByOrder(Y2050100score elem) {
+
+    @WebMethod(operationName = "scorePreferenceByOrder100")
+    public double scorePreferenceByOrder100(Y2050100score elem) {
         double score = 0;
         double total_points_assigned = 40.0;
         Query query2 = em.createNamedQuery("PreferenceOrder100.findAll", PreferenceOrder100.class);

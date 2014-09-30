@@ -1,6 +1,7 @@
 package web;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
@@ -162,7 +163,7 @@ public class webMethods {
         try {
             em.createNativeQuery("UPDATE Y2050 SET liked=liked+1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
-           
+
         }
     }
 
@@ -171,7 +172,7 @@ public class webMethods {
         try {
             em.createNativeQuery("UPDATE Y2050 SET chosen=chosen-1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
-             String foo = "decrease fails";
+            String foo = "decrease fails";
         }
     }
 
@@ -357,4 +358,128 @@ public class webMethods {
      return ;
      }
      */
+
+    public String equal12(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '3';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    public String equal123(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    public String equal23(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    public String equal234(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '2';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    public String equal34(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+               
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '3';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '3';
+            }
+        }
+        
+        return String.valueOf(newcheck);
+    }
+
+    @WebMethod(operationName = "findPreferenceOrder")
+    public List<Y2050> findPreferenceOrder(@WebParam(name = "myorder") String order) {
+        char[] orderelem = order.toCharArray();
+        List<String> myList = new ArrayList<>();
+        myList.add(order);
+        String newordercheck = "1111";
+        myList.add(newordercheck);
+        myList.add(equal12(order));
+        myList.add(equal123(order));
+        myList.add(equal23(order));
+        myList.add(equal234(order));
+        myList.add(equal34(order));
+        List<Y2050> results = new ArrayList<>();
+        for (int i = 0; i < myList.size(); i++) {
+            System.out.println(myList.get(i));
+            Query query = em.createNativeQuery("SELECT * FROM Y2050 WHERE myorder ='" + myList.get(i) + "'", Y2050.class);
+            query.setParameter("myorder", order);
+            results.addAll(query.getResultList());
+        }
+        return results;
+    }
 }
