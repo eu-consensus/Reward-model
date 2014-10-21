@@ -41,21 +41,35 @@ public class Upload extends HttpServlet {
         if (policyname != null) {
             hasname = true;
         }
+        String method = request.getParameter("method");
         String minmax = request.getParameter("minmax");
-        boolean[] myminmax=paretoMethods.minmax(minmax);
+        boolean[] myminmax = paretoMethods.minmax(minmax);
+
         List<policy> mypol = createdata(filecontent, objectivecount, hasname);
-        List<policy> theList2=paretoMethods.putProfits(mypol, myminmax);
-        Collections.sort(mypol, new polComparator());
-        //finding pareto frontiers by all 
-        List<policy> theList = paretoMethods.paretoM(mypol,myminmax );
-        //sorting all elements by domination count
-        Collections.sort(theList, new polComparator2());
-        request.setAttribute("List", theList);
-        request.setAttribute("List2", theList2);
+
+        if (method.equals("anu2")) {
+            List<policy> theList2 = paretoMethods.putProf(mypol, myminmax);
+            request.setAttribute("List2", theList2);
+        }
+        if (method.equals("anu1")) {
+            Collections.sort(mypol, new polComparator());
+            //finding pareto frontiers by all 
+            List<policy> theList = paretoMethods.paretoM(mypol, myminmax);
+            //sorting all elements by domination count
+            Collections.sort(theList, new polComparator2());
+            request.setAttribute("List", theList);
+        }
+        if (method.equals("nsga2")) {
+            System.out.print("nsga2");
+            List<policy> theList = paretoMethods.nsga2(mypol, myminmax);
+            Collections.sort(theList, new polComparator2());
+            List<policy> theList2 = paretoMethods.nsga2FH(theList, myminmax);
+            request.setAttribute("List3", theList2);
+        }
         ServletContext context = getServletContext();
         RequestDispatcher dispatcher = context.getRequestDispatcher("/results.jsp");
         dispatcher.forward(request, response);
-        
+
     }
 
     private static String getFilename(Part part) {

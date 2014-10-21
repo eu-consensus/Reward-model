@@ -19,7 +19,104 @@ import java.util.List;
  */
 public class paretoMethods {
 
-    //TODO CHANGE ALL _____POLICY and function for min max in actual amounts!!!!!!!!!
+    //==========================DISTANCE======================================//
+    private static double minkowskiDistance(double[] table1, double[] table2, double p) {
+        //1<p<2   1=manhattan 2= euclidean oo=chebychev 
+        double dist = 0;
+        double sum = 0;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            sum += Math.pow(Math.abs(table1[i] - table2[i]), p);
+        }
+        dist = Math.pow(sum, 1.0 / p);
+        return dist;
+    }
+
+    private static double mahalanobisDistance(double[] table1, double[] table2) {
+        double dist = 0;
+
+        return dist;
+    }
+
+    private static double hammingDistance(double[] table1, double[] table2) {
+        double dist = 0;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            if (table1[i] == table2[i]) {
+                dist += 1;
+            }
+        }
+        return dist;
+    }
+
+    private static double euclidianDistance(double[] table1, double[] table2) {
+
+        double dist = 0;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            dist += Math.pow((table2[i] - table1[i]), 2);
+        }
+        dist = Math.sqrt(dist);
+        return dist;
+    }
+
+    private static double standardizedEuclideanDistance(double[] table1, double[] table2, double[] s) {
+        //euclidean distance with standart deviation removes problem of scale among vector values eg. (1x<5, 1000<y<6000)
+        double dist = 0;
+        double param = 0;
+
+        for (int i = 0; i < table1.length && i < table2.length && i < s.length; i++) {
+            param = table2[i] - table1[i] / s[i];
+            dist += Math.pow(param, 2);
+        }
+        dist = Math.sqrt(dist);
+        return dist;
+    }
+
+    private static double chebychevDistance(double[] table1, double[] table2) {
+        double dist = -1;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            double dis = Math.abs(table2[i] - table1[i]);
+            if (dist < dis) {
+                dist = dis;
+            }
+        }
+        return dist;
+    }
+
+    private static double manhattanDistance(double[] table1, double[] table2) {
+
+        double dist = 0;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            dist += Math.abs(table2[i] - table1[i]);
+        }
+        return dist;
+    }
+
+    private static double distanceCosine(double[] table1, double[] table2) {
+        double distance = 0;
+        for (int i = 0; i < table1.length && i < table2.length; i++) {
+            double semiDistance1 = 0;
+            double semiDistance2 = 0;
+            for (int j = 0; j < table1.length; j++) {
+                semiDistance1 += Math.pow(table1[j], 2);
+            }
+            semiDistance1 = Math.sqrt(semiDistance1);
+            for (int j = 0; j < table2.length; j++) {
+                semiDistance2 += Math.pow(table2[j], 2);
+            }
+            semiDistance2 = Math.sqrt(semiDistance2);
+            semiDistance1 *= semiDistance2;
+            distance += (table1[i] * table2[i]) / semiDistance1;
+        }
+        return distance * (-1);
+    }
+
+    private static double[] simpleDistance(double[] a, double[] b) {
+        double[] dist = new double[a.length];
+        for (int i = 0; i < a.length; i++) {
+            dist[i] = Math.abs(a[i] - b[i]);
+        }
+        return dist;
+    }
+    //------------------------------------------------------------------------------------------//
 
     public static class polComparator implements Comparator<policy> {
 
@@ -313,7 +410,7 @@ public class paretoMethods {
                 if (!equal) {
                     if (bigger) {
                         theList.get(j).setDominated(theList.get(j).getDominated() + 1);
-
+                        theList.get(j).setSi(theList.get(i).getPolicyName());
                         /*  System.out.println("bigger");
                          for (int w = 0; w < theList.get(i).getData().length; w++) { 
                          System.out.print(theList.get(i).getData()[w]);
@@ -323,6 +420,7 @@ public class paretoMethods {
                     }
                     if (smaller) {
                         theList.get(i).setDominated(theList.get(i).getDominated() + 1);
+                        theList.get(i).setSi(theList.get(j).getPolicyName());
                         /* System.out.println("smaller");
                          for (int w = 0; w < theList.get(i).getData().length; w++) {
                          System.out.print(theList.get(i).getData()[w]);
@@ -420,7 +518,7 @@ public class paretoMethods {
         return finalL;
     }
 
-    public static List<policy> putProfits(List<policy> theList, boolean[] minmax) {
+    public static List<policy> putProf(List<policy> theList, boolean[] minmax) {
         Hashtable<String, List<policy>> mylist = createLists(theList);
         Enumeration<String> e = mylist.keys();
         List<policy> rList = new ArrayList<>();
@@ -430,5 +528,137 @@ public class paretoMethods {
         }
         return paretoPref(rList, minmax);
     }
+
+    public static List<policy> nsga2(List<policy> theList, boolean[] minmax) {
+
+        for (int i = 0; i < theList.size(); i++) {
+            double[] data = theList.get(i).getObjectives();
+
+            for (int j = i + 1; j < theList.size(); j++) {
+                double[] element = theList.get(j).getObjectives();
+                boolean bigger = true;
+                boolean smaller = true;
+                boolean equal = true;
+
+                for (int w = 0; w < data.length; w++) {
+                    if (minmax[w]) {
+                        int result = maximizationofObjective(data[w], element[w]);
+                        if (result == 1) {
+                            bigger = true && bigger;
+                            smaller = false;
+                            equal = false;
+                        } else if (result == 0) {
+                            equal = true && equal;
+                        } else {
+                            bigger = false;
+                            smaller = true && smaller;
+                            equal = false;
+                        }
+                    } else {
+                        int result = minimizationofObjective(data[w], element[w]);
+                        if (result == 1) {
+                            bigger = true && bigger;
+                            smaller = false;
+                            equal = false;
+                        } else if (result == 0) {
+                            equal = true && equal;
+                        } else {
+                            bigger = false;
+                            smaller = true && smaller;
+                            equal = false;
+                        }
+                    }
+                }
+                if (!equal) {
+                    if (bigger) {
+                        theList.get(j).setDominated(theList.get(j).getDominated() + 1);
+                        theList.get(i).setSi(theList.get(j).getPolicyName());
+                        /*  System.out.println("bigger");
+                         for (int w = 0; w < theList.get(i).getData().length; w++) { 
+                         System.out.print(theList.get(i).getData()[w]);
+                         System.out.print(theList.get(j).getData()[w]);
+                         System.out.println();
+                         }*/
+                    }
+                    if (smaller) {
+                        theList.get(i).setDominated(theList.get(i).getDominated() + 1);
+                        theList.get(j).setSi(theList.get(i).getPolicyName());
+                        /* System.out.println("smaller");
+                         for (int w = 0; w < theList.get(i).getData().length; w++) {
+                         System.out.print(theList.get(i).getData()[w]);
+                         System.out.print(theList.get(j).getData()[w]);
+                         System.out.println();
+                         }
+                         */
+                    }
+                }
+            }
+        }
+        return theList;
+    }
+
+    public static List<policy> nsga2FH(List<policy> theList, boolean[] minmax) {
+
+        int rank = 1;
+        List<policy> fList = new ArrayList<>();
+        List<policy> retList = new ArrayList<>();
+        Hashtable<String, policy> myList = new Hashtable<>();
+        Iterator<policy> iterator = theList.iterator();
+        int number = theList.get(0).getObjectives().length;
+        //keep in Ni the domination count from the previous stage
+
+        while (iterator.hasNext()) {
+            policy pol = new policy(number, true);
+            pol = iterator.next();
+            pol.setNi(pol.getDominated());
+            String keyName = pol.getPolicyName();
+            myList.put(keyName, pol);
+        }
+
+        while (!myList.isEmpty()) {
+            Enumeration<String> e = myList.keys();
+            while (e.hasMoreElements()) {
+                String key = e.nextElement();
+                policy temp = myList.get(key);
+                if (temp.getNi() == 0) {
+                    temp.setRank(rank);
+                    System.out.print(rank);
+                    fList.add(temp);
+                    myList.remove(key);
+                }
+            }
+            //myList now contains only dominated values
+            retList.addAll(fList);
+            for (policy myp : fList) {
+                for (String mystr : myp.getSi().split(" , ")) {
+                    if (myList.containsKey(mystr)) {
+                        policy temp11 = myList.get(mystr);
+                        temp11.setNi(temp11.getNi() - 1);
+                    }
+                }
+            }
+        //removed non dominated values from domination count 
+            //visit j in Si and reduce nj count by one
+            rank++;
+            fList.clear();
+        }
+        return retList;
+    }
+
+    public static List<policy> spea2(List<policy> theList, boolean[] minmax) {
+
+        return theList;
+    }
+
+    public static List<policy> fonflem(List<policy> theList, boolean[] minmax) {
+
+        return theList;
+    }
+
+    public static List<policy> greenw(List<policy> theList, boolean[] minmax, double[] weights) {
+
+        return theList;
+    }
+
 }
 

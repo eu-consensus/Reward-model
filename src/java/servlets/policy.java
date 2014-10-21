@@ -21,6 +21,9 @@ public class policy {
     private double distance;
     private int dominatedbycategory;
     private String order;
+    private String Si;
+    private int rank;
+    private int ni;
 
     public policy(int number, boolean hasname) {
         objectives = new double[number];
@@ -29,12 +32,40 @@ public class policy {
         this.distance = 0;
         this.dominatedbycategory=0;
         this.order="";
+        this.Si="";
+        this.rank=0;
+        this.ni=0;
         
         if (!hasname) {
             policyName = UUID.randomUUID().toString();
         } else {
             policyName = "";
         }
+    }
+
+    public int getNi() {
+        return ni;
+    }
+
+    public void setNi(int ni) {
+        this.ni = ni;
+    }
+
+    public String getSi() {
+        return Si;
+    }
+
+    public void setSi(String Si) {
+        if(this.Si.equals("")) this.Si = Si;
+        else this.Si= Si+" , "+this.Si;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
     public double getScore() {
