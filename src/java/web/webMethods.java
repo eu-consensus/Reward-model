@@ -14,11 +14,114 @@ import web.DBconnections.Y2050;
 import web.DBconnections.Y2050100score;
 
 @WebService
-@Stateless
+@Stateless(name="webMethods")
 public class webMethods {
 
     @PersistenceContext(unitName = "PolisPU")
     public EntityManager em;
+
+    
+    private String equal12(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '3';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    private String equal123(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    private String equal23(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '4';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    private String equal234(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '2';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '2';
+            }
+        }
+        return  String.valueOf(newcheck);
+    }
+
+    private String equal34(String order) {
+        char[] orderelem = order.toCharArray();
+        char[] newcheck = new char[orderelem.length];
+        for (int i = 0; i < orderelem.length; i++) {
+            if (orderelem[i] == '1') {
+                newcheck[i] = '1';
+            }
+            if (orderelem[i] == '2') {
+                newcheck[i] = '2';
+               
+            }
+            if (orderelem[i] == '3') {
+                newcheck[i] = '3';
+            }
+            if (orderelem[i] == '4') {
+                newcheck[i] = '3';
+            }
+        }
+        
+        return String.valueOf(newcheck);
+    }
 
     @WebMethod(operationName = "findById")
     public List<Y2050> findById(@WebParam(name = "id") int id) {
@@ -359,108 +462,6 @@ public class webMethods {
      }
      */
 
-    public String equal12(String order) {
-        char[] orderelem = order.toCharArray();
-        char[] newcheck = new char[orderelem.length];
-        for (int i = 0; i < orderelem.length; i++) {
-            if (orderelem[i] == '1') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '2') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '3') {
-                newcheck[i] = '3';
-            }
-            if (orderelem[i] == '4') {
-                newcheck[i] = '4';
-            }
-        }
-        return  String.valueOf(newcheck);
-    }
-
-    public String equal123(String order) {
-        char[] orderelem = order.toCharArray();
-        char[] newcheck = new char[orderelem.length];
-        for (int i = 0; i < orderelem.length; i++) {
-            if (orderelem[i] == '1') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '2') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '3') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '4') {
-                newcheck[i] = '4';
-            }
-        }
-        return  String.valueOf(newcheck);
-    }
-
-    public String equal23(String order) {
-        char[] orderelem = order.toCharArray();
-        char[] newcheck = new char[orderelem.length];
-        for (int i = 0; i < orderelem.length; i++) {
-            if (orderelem[i] == '1') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '2') {
-                newcheck[i] = '2';
-            }
-            if (orderelem[i] == '3') {
-                newcheck[i] = '2';
-            }
-            if (orderelem[i] == '4') {
-                newcheck[i] = '4';
-            }
-        }
-        return  String.valueOf(newcheck);
-    }
-
-    public String equal234(String order) {
-        char[] orderelem = order.toCharArray();
-        char[] newcheck = new char[orderelem.length];
-        for (int i = 0; i < orderelem.length; i++) {
-            if (orderelem[i] == '1') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '2') {
-                newcheck[i] = '2';
-            }
-            if (orderelem[i] == '3') {
-                newcheck[i] = '2';
-            }
-            if (orderelem[i] == '4') {
-                newcheck[i] = '2';
-            }
-        }
-        return  String.valueOf(newcheck);
-    }
-
-    public String equal34(String order) {
-        char[] orderelem = order.toCharArray();
-        char[] newcheck = new char[orderelem.length];
-        for (int i = 0; i < orderelem.length; i++) {
-            if (orderelem[i] == '1') {
-                newcheck[i] = '1';
-            }
-            if (orderelem[i] == '2') {
-                newcheck[i] = '2';
-               
-            }
-            if (orderelem[i] == '3') {
-                newcheck[i] = '3';
-            }
-            if (orderelem[i] == '4') {
-                newcheck[i] = '3';
-            }
-        }
-        
-        return String.valueOf(newcheck);
-    }
-
     @WebMethod(operationName = "findPreferenceOrder")
     public List<Y2050> findPreferenceOrder(@WebParam(name = "myorder") String order) {
         char[] orderelem = order.toCharArray();
@@ -475,7 +476,6 @@ public class webMethods {
         myList.add(equal34(order));
         List<Y2050> results = new ArrayList<>();
         for (int i = 0; i < myList.size(); i++) {
-            System.out.println(myList.get(i));
             Query query = em.createNativeQuery("SELECT * FROM Y2050 WHERE myorder ='" + myList.get(i) + "'", Y2050.class);
             query.setParameter("myorder", order);
             results.addAll(query.getResultList());

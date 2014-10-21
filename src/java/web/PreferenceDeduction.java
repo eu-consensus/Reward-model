@@ -24,7 +24,7 @@ import web.DBconnections.Y2050;
 import web.DBconnections.Y2050100score;
 
 @WebService()
-@Stateless
+@Stateless(name="PreferenceDeduction")
 public class PreferenceDeduction {
 
     @PersistenceContext(unitName = "PolisPU")
@@ -62,7 +62,6 @@ public class PreferenceDeduction {
                         break;
                     }
                     temp_amount += test.get(w + i).getCount();
-                    System.out.print(temp_amount);
                     if (Double.compare((double) temp_amount * 100 / total, threshold) > 0) {
 
                         if (space[2] < temp_amount * 100 / total) {
@@ -120,9 +119,7 @@ public class PreferenceDeduction {
                 temp1.setValue(key);
                 temp1.setCount(hashList.get(key));
                 count = hashList.get(key);
-                //System.out.print("this is merge " + key + " " + hashList.get(key));
-
-            }
+              }
         }
         return temp1;
     }
@@ -379,16 +376,16 @@ public class PreferenceDeduction {
         List<Preference> results = query.getResultList();
         double score = 0;
         if (!results.isEmpty()) {
-            if (elem.getBiodiv() <= results.get(results.size() - 1).getBiodivEnd() && elem.getBiodiv() >= results.get(results.size() - 1).getBiodivStart()) {
+            if (elem.getBiodiv() <= results.get(results.size() - 1).getBiodivEnd() && elem.getBiodiv() >= results.get(results.size() - 1).getBiodivStart()&& results.get(results.size() - 1).getBiodivValue()>=0.30) {
                 score += 0.25;
             }
-            if (elem.getCo2() <= results.get(results.size() - 1).getCo2End() && elem.getCo2() >= results.get(results.size() - 1).getCo2Start()) {
+            if (elem.getCo2() <= results.get(results.size() - 1).getCo2End() && elem.getCo2() >= results.get(results.size() - 1).getCo2Start()&& results.get(results.size() - 1).getCo2Value()>=0.30) {
                 score += 0.25;
             }
-            if (elem.getCostfood() <= results.get(results.size() - 1).getCostfoodEnd() && elem.getCostfood() >= results.get(results.size() - 1).getCostfoodStart()) {
+            if (elem.getCostfood() <= results.get(results.size() - 1).getCostfoodEnd() && elem.getCostfood() >= results.get(results.size() - 1).getCostfoodStart()&& results.get(results.size() - 1).getCostfoodValue()>=0.30) {
                 score += 0.25;
             }
-            if (elem.getForestland() <= results.get(results.size() - 1).getForestlandEnd() && elem.getForestland() >= results.get(results.size() - 1).getForestlandStart()) {
+            if (elem.getForestland() <= results.get(results.size() - 1).getForestlandEnd() && elem.getForestland() >= results.get(results.size() - 1).getForestlandStart()&& results.get(results.size() - 1).getForestlandValue()>=0.30) {
                 score += 0.25;
             }
         }
@@ -510,7 +507,7 @@ public class PreferenceDeduction {
         if (elem.getMyorder().matches("." + "." + "." + lastpref.getPlaces().toCharArray()[3])) {
             score += total_points_assigned * 0.05;
         }
-        return score;
+        return score+elem.getScore() * 100;
     }
 
     @WebMethod(operationName = "setPrefereceByOrder100")
@@ -626,6 +623,6 @@ public class PreferenceDeduction {
         if (elem.getMyorder().matches("." + "." + "." + lastpref.getPlaces().toCharArray()[3])) {
             score += total_points_assigned * 0.05;
         }
-        return score;
+        return score+elem.getScore();
     }
 }
