@@ -5,31 +5,61 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+
         <form method="POST" action="Upload" enctype="multipart/form-data" >
             <p>Add a .csv or .txt file (criteria seperated by commas) Policy name is only allowed in the begging of the line
-            Precision is defined according to the file number precision</p>
+                Precision is defined according to the file number precision</p>
             <h1>File:
-            <input type="file" name="file" id="file" /> 
+                <input type="file" name="file" id="file" /> 
             </h1>
             <br/>
             How many criteria are there? Available for 2-12 criteria:
-            <input  type="number" min="2" max="12" name="objectivecount"/>
+            <input id="number" type="number" min="2" max="12" name="objectivecount"/>
             <br/>
             I've added the Policy's name
             <input type="checkbox" name="policyname" value="ON">
             <br/>
             Add + for maximization and - for minimization per criteria
-            <input type="text" name="minmax" value="" size="12" />
-            </br>
-            <br/>What type of method do you want to be used?
-            </br>
+            <input id="symbols" type="text" name="minmax" value="" size="12" />
+            <button type="button" onclick="symbolCheck()">Submit</button>
+            <div id="demo" style="display:none;color:red">Invalid input</div> <br>
+            <br>What type of method do you want to be used?
+            <br>
             <input type="radio" name="method" value="anu1" checked="checked">Multiobjective Optimization<br>
             <input type="radio" name="method" value="anu2">Multiobjective Optimization Fast Algorithm<br>
             <input type="radio" name="method" value="nsga2">NSGA-II<br>
             <br/>
-            <input type="submit" value="Upload" name="upload" id="upload" />
+            <input  type="submit"  style="display:none" value="Upload" name="upload" id="upload" />
             </br>
         </form>
-       <!-- ADD MESSAGE OF ERROR --> 
+        <!-- ADD MESSAGE OF ERROR --> 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>
+                function symbolCheck() {
+                    document.getElementById("upload").style.display = 'none';
+                    var symbol = document.getElementById("symbols").value;
+                    symbol = symbol.match(/(-)+|(\+)+/g);
+                    if (symbol)
+                    {
+                        symbol = symbol.join("");
+                        var num = document.getElementById("number").value;
+                        if (symbol.length !== parseInt(num)) {
+                            $(document).ready(function () {
+                                $("#demo").fadeIn(3000);
+                                $("#demo").fadeOut("slow");
+                            });
+                        } else {
+                            document.getElementById("upload").style.display = 'block';
+                        }
+                    }
+                    else
+                    {
+                        $(document).ready(function () {
+                            $("#demo").fadeIn(3000);
+                            $("#demo").fadeOut("slow");
+                        });
+                    }
+                }
+        </script>
     </body>
 </html>
