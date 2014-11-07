@@ -355,12 +355,18 @@ public class paretoMethods {
     public static boolean[] minmax(String minmaxstr) {
         char[] minmaxc = minmaxstr.toCharArray();
         boolean[] minmax = new boolean[minmaxc.length];
-        for (int i = 0; i < minmax.length; i++) {
+       /* for (int i = 0; i < minmax.length; i++) {
             minmax[i] = false;
-        }
+        }*/
+        int u=0;
         for (int i = 0; i < minmaxc.length; i++) {
             if (minmaxc[i] == '+') {
-                minmax[i] = true;
+                minmax[u] = true;
+                u++;
+            }
+           if (minmaxc[i] == '-') {
+                minmax[u] = false;
+                u++;
             }
         }
         return minmax;

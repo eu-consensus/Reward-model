@@ -44,7 +44,7 @@ public class Upload extends HttpServlet {
         String method = request.getParameter("method");
         String minmax = request.getParameter("minmax");
         boolean[] myminmax = paretoMethods.minmax(minmax);
-
+for(boolean temp123:myminmax)System.out.print(temp123);
         List<policy> mypol = createdata(filecontent, objectivecount, hasname);
 
         if (method.equals("anu2")) {
