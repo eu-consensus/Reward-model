@@ -24,20 +24,23 @@ public class policy {
     private String Si;
     private int rank;
     private int ni;
+    private static int uniqueid = 1;
 
     public policy(int number, boolean hasname) {
         objectives = new double[number];
         this.score = 0;
         this.dominated = 0;
         this.distance = 0;
-        this.dominatedbycategory=0;
-        this.order="";
-        this.Si="";
-        this.rank=0;
-        this.ni=0;
-        
+        this.dominatedbycategory = 0;
+        this.order = "";
+        this.Si = "";
+        this.rank = 0;
+        this.ni = 0;
+
         if (!hasname) {
-            policyName = UUID.randomUUID().toString();
+            //  policyName = UUID.randomUUID().toString();
+            policyName = Integer.toString(uniqueid);
+            uniqueid++;
         } else {
             policyName = "";
         }
@@ -56,8 +59,11 @@ public class policy {
     }
 
     public void setSi(String Si) {
-        if(this.Si.equals("")) this.Si = Si;
-        else this.Si= Si+" , "+this.Si;
+        if (this.Si.equals("")) {
+            this.Si = Si;
+        } else {
+            this.Si = Si + " , " + this.Si;
+        }
     }
 
     public int getRank() {
@@ -91,7 +97,7 @@ public class policy {
     public void setDistance(double distance) {
         this.distance = distance;
     }
-        
+
     public String getPolicyName() {
         return policyName;
     }
@@ -107,10 +113,9 @@ public class policy {
     public void setObjectives(double[] objectives) {
         this.objectives = objectives;
     }
- 
 
-   public void setDistance() {
-          
+    public void setDistance() {
+
         //euclidean 
         double sum = 0;
         for (int i = 0; i < objectives.length; i++) {
@@ -118,7 +123,7 @@ public class policy {
         }
         this.distance = Math.sqrt(sum);
     }
-    
+
     public int getDominatedbycategory() {
         return dominatedbycategory;
     }
@@ -132,25 +137,25 @@ public class policy {
     }
 
     public void setOrder(int objectives_number) {
-       //in order to create the right order we need to substract from the total number of objectives
+        //in order to create the right order we need to substract from the total number of objectives
         int[] thisorder = new int[objectives.length];
         double[] sorted = objectives.clone();
         Arrays.sort(sorted);
-        String myorder="";
+        String myorder = "";
         //TODO fix O() add equals in same order value
         for (int j = 0; j < objectives.length; j++) {
             for (int i = 0; i < objectives.length; i++) {
-                
-                if (objectives[j]==sorted[i]) {
-                    thisorder[j] = objectives_number-i;
+
+                if (objectives[j] == sorted[i]) {
+                    thisorder[j] = objectives_number - i;
                 }
             }
         }
-    
-        for(int u=0; u<thisorder.length;u++){
-            myorder+=thisorder[u];
+
+        for (int u = 0; u < thisorder.length; u++) {
+            myorder += thisorder[u];
         }
         this.order = myorder;
     }
-    
+
 }
