@@ -1,0 +1,60 @@
+Baseline No RED,0.0000,-0.0000,0.0000,0.0000
+Baseline 50% RED,0.5292,-5.6329,1.9752,1.3938
+Baseline 75% RED,1.0289,-9.6896,4.0805,2.5422
+Baseline 95%  RED,1.8263,-13.8465,6.8936,4.13
+Baseline 100% RED,2.0874,-15.2632,7.8634,4.7958
+ProNature No RED,0.0844,-0.0036,1.8687,-0.1223
+ProNature 50% RED,0.6906,-7.2937,4.3259,1.373
+ProNature 75% RED,1.1537,-10.8427,6.3914,2.4759
+ProNature 95%  RED,1.8927,-14.586,8.9341,4.1006
+ProNature 100% RED,2.1877,-16.4098,9.8588,4.7927
+ProNature+ No RED,4.2842,-23.6313,21.8295,4.7915
+ProNature+ 50% RED,4.2842,-23.6244,21.9065,4.7915
+ProNature+ 75% RED,4.2842,-23.5409,21.8314,4.7915
+ProNature+ 95%  RED,4.2842,-23.5938,21.8287,4.7915
+ProNature+ 100% RED,4.3356,-23.6968,22.0532,4.9457
+Bioenergy+ No RED,-0.3497,0.3215,0.2261,-0.1593
+Bioenergy+ 50% RED,0.1551,-5.6055,2.4945,1.3741
+Bioenergy+ 75% RED,0.6871,-9.5416,4.6271,2.5413
+Bioenergy+ 95%  RED,1.4683,-13.8405,7.4187,4.1294
+Bioenergy+ 100% RED,1.7279,-15.2413,8.4897,4.7966
+Bioenergy+ & ProNature No RED,-0.3022,0.4039,2.263,-0.2733
+Bioenergy+ & ProNature 50% RED,0.3369,-7.443,4.7489,1.3575
+Bioenergy+ & ProNature 75% RED,0.7913,-10.9327,6.9731,2.4645
+Bioenergy+ & ProNature 95%  RED,1.4978,-14.4946,9.4327,4.099
+Bioenergy+ & ProNature 100% RED,1.8035,-16.2923,10.4319,4.793
+Bioenergy+ & ProNature+ No RED,4.1283,-23.5107,23.8615,4.7983
+Bioenergy+ & ProNature+ 50% RED,4.1283,-23.5236,23.6811,4.7983
+Bioenergy+ & ProNature+ 75% RED,4.1283,-23.5235,23.7118,4.7983
+Bioenergy+ & ProNature+ 95%  RED,4.1283,-23.5374,23.6865,4.7983
+Bioenergy+ & ProNature+ 100% RED,4.1866,-23.6505,24.0956,4.9454
+Dietshift No RED,2.5991,-18.7228,-4.8567,2.7081
+Dietshift 50% RED,2.6022,-18.6942,-4.8563,2.7213
+Dietshift 75% RED,2.6307,-20.1689,-4.6656,2.9791
+Dietshift 95%  RED,3.1949,-22.8794,-3.9581,4.0732
+Dietshift 100% RED,3.3827,-23.5927,-3.5307,4.8045
+Dietshift & ProNature No RED,2.6066,-19.3802,-4.1151,2.7165
+Dietshift & ProNature 50% RED,2.6278,-19.5035,-4.1119,2.7212
+Dietshift & ProNature 75% RED,2.6342,-19.9324,-4.0247,2.8688
+Dietshift & ProNature 95%  RED,3.2209,-22.9266,-3.2692,4.052
+Dietshift & ProNature 100% RED,3.4983,-24.6271,-2.9128,4.8016
+Dietshift & ProNature+ No RED,5.2872,-31.1406,1.0843,4.8948
+Dietshift & ProNature+ 50% RED,5.2862,-31.102,1.0784,4.8948
+Dietshift & ProNature+ 75% RED,5.2865 ,31.1399,1.0789,4.8948
+Dietshift & ProNature+ 95%  RED,5.2872,-31.1491,1.0777,4.8948
+Dietshift & ProNature+ 100% RED,5.3176,-31.3052,1.1368,4.9574
+Dietshift & Bioenergy+ No RED,2.2722,-18.7167,-4.7792,2.6289
+Dietshift & Bioenergy+ 50% RED,2.3094,-18.7461,-4.7686,2.646
+Dietshift & Bioenergy+ 75% RED,2.4171,-20.3485,-4.5418,2.9314
+Dietshift & Bioenergy+ 95%  RED,2.801,-22.9657,-3.6835,4.0821
+Dietshift & Bioenergy+ 100% RED,3.1078,-23.7743,-3.2952,4.8043
+Dietshift & Bioenergy+ & ProNature No RED,2.2958,-19.477,-3.8976,2.681
+Dietshift & Bioenergy+ & ProNature 50% RED,2.2903,-19.3972,-3.9011,2.681
+Dietshift & Bioenergy+ & ProNature 75% RED,2.3417,-20.3218,-3.7998,2.8546
+Dietshift & Bioenergy+ & ProNature 95%  RED,2.8672,-23.22,-3.0239,4.0615
+Dietshift & Bioenergy+ & ProNature 100% RED,3.2221,-24.6109,-2.5713,4.8008
+Dietshift & Bioenergy+ & ProNature+ No RED,5.0703,-31.5585,2.1646,4.8948
+Dietshift & Bioenergy+ & ProNature+ 50% RED,5.0702,-31.4957,2.1647,4.8948
+Dietshift & Bioenergy+ & ProNature+ 75% RED,5.0702,-31.5597,2.1649,4.8948
+Dietshift & Bioenergy+ & ProNature+ 95%  RED,5.0703,-31.5037,2.1651,4.8948
+Dietshift & Bioenergy+ & ProNature+ 100% RED,5.107,-31.6756,2.215,4.9574
