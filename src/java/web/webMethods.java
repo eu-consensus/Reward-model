@@ -461,7 +461,7 @@ public class webMethods {
      return ;
      }
      */
-
+//finds order that can be applied even though user selected 1234 it can return values 1134 or 1114 etc
     @WebMethod(operationName = "findPreferenceOrder")
     public List<Y2050> findPreferenceOrder(@WebParam(name = "myorder") String order) {
         char[] orderelem = order.toCharArray();
@@ -469,11 +469,11 @@ public class webMethods {
         myList.add(order);
         String newordercheck = "1111";
         myList.add(newordercheck);
-        myList.add(equal12(order));
-        myList.add(equal123(order));
-        myList.add(equal23(order));
-        myList.add(equal234(order));
-        myList.add(equal34(order));
+        if(!order.equals(equal12(order))) myList.add(equal12(order));
+        if(!order.equals(equal123(order)))myList.add(equal123(order));
+        if(!order.equals(equal23(order)))myList.add(equal23(order));
+        if(!order.equals(equal234(order)))myList.add(equal234(order));
+        if(!order.equals(equal34(order)))myList.add(equal34(order));
         List<Y2050> results = new ArrayList<>();
         for (int i = 0; i < myList.size(); i++) {
             Query query = em.createNativeQuery("SELECT * FROM Y2050 WHERE myorder ='" + myList.get(i) + "'", Y2050.class);
