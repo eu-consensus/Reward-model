@@ -468,12 +468,17 @@ public class webMethods {
         List<String> myList = new ArrayList<>();
         myList.add(order);
         String newordercheck = "1111";
+        String str12=equal12(order);
+        String str123=equal123(order);
+        String str23=equal23(order);
+        String str234=equal234(order);
+        String str34=equal34(order);
         myList.add(newordercheck);
-        if(!order.equals(equal12(order))) myList.add(equal12(order));
-        if(!order.equals(equal123(order)))myList.add(equal123(order));
-        if(!order.equals(equal23(order)))myList.add(equal23(order));
-        if(!order.equals(equal234(order)))myList.add(equal234(order));
-        if(!order.equals(equal34(order)))myList.add(equal34(order));
+        if(!order.equals(str12)&& !str12.equals(newordercheck) ) myList.add(str12);
+        if(!order.equals(str123)&& !str123.equals(newordercheck) && !str123.equals(str12))myList.add(str123);
+        if(!order.equals(str23) && !str23.equals(str12) && !str23.equals(str123) && !str23.equals(newordercheck))myList.add(str23);
+        if(!order.equals(str234) && !str234.equals(str12) && !str234.equals(str123) && !str234.equals(newordercheck)&& !str234.equals(str23))myList.add(str234);
+        if(!order.equals(str34) && !str34.equals(str12) && !str34.equals(str123) && !str34.equals(newordercheck)&& !str34.equals(str23) && !str34.equals(str234))myList.add(str34);
         List<Y2050> results = new ArrayList<>();
         for (int i = 0; i < myList.size(); i++) {
             Query query = em.createNativeQuery("SELECT * FROM Y2050 WHERE myorder ='" + myList.get(i) + "'", Y2050.class);
