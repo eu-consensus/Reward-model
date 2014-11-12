@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
-import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +43,6 @@ public class Upload extends HttpServlet {
         String method = request.getParameter("method");
         String minmax = request.getParameter("minmax");
         boolean[] myminmax = paretoMethods.minmax(minmax);
-for(boolean temp123:myminmax)System.out.print(temp123);
         List<policy> mypol = createdata(filecontent, objectivecount, hasname);
 
         if (method.equals("anu2")) {
@@ -60,7 +58,7 @@ for(boolean temp123:myminmax)System.out.print(temp123);
             request.setAttribute("List", theList);
         }
         if (method.equals("nsga2")) {
-            System.out.print("nsga2");
+           
             List<policy> theList = paretoMethods.nsga2(mypol, myminmax);
             Collections.sort(theList, new polComparator2());
             List<policy> theList2 = paretoMethods.nsga2FH(theList, myminmax);

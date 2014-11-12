@@ -14,13 +14,12 @@ import web.DBconnections.Y2050;
 import web.DBconnections.Y2050100score;
 
 @WebService
-@Stateless(name="webMethods")
+@Stateless(name = "webMethods")
 public class webMethods {
 
     @PersistenceContext(unitName = "PolisPU")
     public EntityManager em;
 
-    
     private String equal12(String order) {
         char[] orderelem = order.toCharArray();
         char[] newcheck = new char[orderelem.length];
@@ -38,7 +37,7 @@ public class webMethods {
                 newcheck[i] = '4';
             }
         }
-        return  String.valueOf(newcheck);
+        return String.valueOf(newcheck);
     }
 
     private String equal123(String order) {
@@ -58,7 +57,7 @@ public class webMethods {
                 newcheck[i] = '4';
             }
         }
-        return  String.valueOf(newcheck);
+        return String.valueOf(newcheck);
     }
 
     private String equal23(String order) {
@@ -78,7 +77,7 @@ public class webMethods {
                 newcheck[i] = '4';
             }
         }
-        return  String.valueOf(newcheck);
+        return String.valueOf(newcheck);
     }
 
     private String equal234(String order) {
@@ -98,7 +97,7 @@ public class webMethods {
                 newcheck[i] = '2';
             }
         }
-        return  String.valueOf(newcheck);
+        return String.valueOf(newcheck);
     }
 
     private String equal34(String order) {
@@ -110,7 +109,7 @@ public class webMethods {
             }
             if (orderelem[i] == '2') {
                 newcheck[i] = '2';
-               
+
             }
             if (orderelem[i] == '3') {
                 newcheck[i] = '3';
@@ -119,7 +118,7 @@ public class webMethods {
                 newcheck[i] = '3';
             }
         }
-        
+
         return String.valueOf(newcheck);
     }
 
@@ -255,16 +254,32 @@ public class webMethods {
     @WebMethod(operationName = "increaseChosen")
     public void increaseChosen(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE Y2050 SET chosen=chosen+1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer chosen = entry.getChosen();
+            chosen++;
+            entry.setChosen(chosen);
+            em.merge(entry);
+            //em.createNativeQuery("UPDATE Y2050 SET chosen=chosen+1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception exception) {
-            String foo = "sadf";
+            String foo = "asdf";
         }
     }
 
     @WebMethod(operationName = "increaseLiked")
     public void increaseLiked(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE Y2050 SET liked=liked+1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer liked = entry.getLiked();
+            liked++;
+            entry.setLiked(liked);
+            em.merge(entry);
+            //em.createNativeQuery("UPDATE Y2050 SET liked=liked+1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
 
         }
@@ -273,7 +288,15 @@ public class webMethods {
     @WebMethod(operationName = "decreaseChosen")
     public void decreaseChosen(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE Y2050 SET chosen=chosen-1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer chosen = entry.getChosen();
+            chosen--;
+            entry.setChosen(chosen);
+            em.merge(entry);
+            //em.createNativeQuery("UPDATE Y2050 SET chosen=chosen-1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
             String foo = "decrease fails";
         }
@@ -282,7 +305,15 @@ public class webMethods {
     @WebMethod(operationName = "decreaseLiked")
     public void decreaseLiked(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE Y2050 SET liked=liked-1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer liked = entry.getLiked();
+            liked--;
+            entry.setLiked(liked);
+            em.merge(entry);
+            // em.createNativeQuery("UPDATE Y2050 SET liked=liked-1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
         }
     }
@@ -419,7 +450,15 @@ public class webMethods {
     @WebMethod(operationName = "increaseChosen100")
     public void increaseChosen100(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE y2050_100score SET chosen=chosen+1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer chosen = entry.getChosen();
+            chosen++;
+            entry.setLiked(chosen);
+            em.merge(entry);
+            // em.createNativeQuery("UPDATE y2050_100score SET chosen=chosen+1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
         }
     }
@@ -427,7 +466,15 @@ public class webMethods {
     @WebMethod(operationName = "increaseLiked100")
     public void increaseLiked100(@WebParam(name = "policy") String pol) {
         try {
-            em.createNativeQuery("UPDATE y2050_100score SET liked=liked+1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer liked = entry.getLiked();
+            liked++;
+            entry.setLiked(liked);
+            em.merge(entry);
+            //em.createNativeQuery("UPDATE y2050_100score SET liked=liked+1 WHERE policy ='" + pol + "'").executeUpdate();
         } catch (Exception e) {
         }
     }
@@ -436,7 +483,14 @@ public class webMethods {
     public void decreaseChosen100(@WebParam(name = "policy") String pol) {
         try {
 
-            em.createNativeQuery("UPDATE y2050_100score SET chosen=chosen-1 WHERE policy ='" + pol + "'").executeUpdate();
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
+
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer chosen = entry.getChosen();
+            chosen--;
+            entry.setChosen(chosen);
+            em.merge(entry);
 
         } catch (Exception e) {
         }
@@ -445,9 +499,14 @@ public class webMethods {
     @WebMethod(operationName = "decreaseLiked100")
     public void decreaseLiked100(@WebParam(name = "policy") String pol) {
         try {
+            Query q = em.createNamedQuery("Y2050.findByPolicy");
+            q.setParameter("policy", pol);
 
-            Query query = em.createNativeQuery("UPDATE y2050_100score SET liked=liked-1 WHERE policy ='" + pol + "'");
-            query.executeUpdate();
+            Y2050 entry = (Y2050) q.getSingleResult();
+            Integer liked = entry.getLiked();
+            liked--;
+            entry.setChosen(liked);
+            em.merge(entry);
         } catch (Exception e) {
         }
     }
@@ -462,23 +521,34 @@ public class webMethods {
      }
      */
 //finds order that can be applied even though user selected 1234 it can return values 1134 or 1114 etc
+
     @WebMethod(operationName = "findPreferenceOrder")
     public List<Y2050> findPreferenceOrder(@WebParam(name = "myorder") String order) {
         char[] orderelem = order.toCharArray();
         List<String> myList = new ArrayList<>();
         myList.add(order);
         String newordercheck = "1111";
-        String str12=equal12(order);
-        String str123=equal123(order);
-        String str23=equal23(order);
-        String str234=equal234(order);
-        String str34=equal34(order);
+        String str12 = equal12(order);
+        String str123 = equal123(order);
+        String str23 = equal23(order);
+        String str234 = equal234(order);
+        String str34 = equal34(order);
         myList.add(newordercheck);
-        if(!order.equals(str12)&& !str12.equals(newordercheck) ) myList.add(str12);
-        if(!order.equals(str123)&& !str123.equals(newordercheck) && !str123.equals(str12))myList.add(str123);
-        if(!order.equals(str23) && !str23.equals(str12) && !str23.equals(str123) && !str23.equals(newordercheck))myList.add(str23);
-        if(!order.equals(str234) && !str234.equals(str12) && !str234.equals(str123) && !str234.equals(newordercheck)&& !str234.equals(str23))myList.add(str234);
-        if(!order.equals(str34) && !str34.equals(str12) && !str34.equals(str123) && !str34.equals(newordercheck)&& !str34.equals(str23) && !str34.equals(str234))myList.add(str34);
+        if (!order.equals(str12) && !str12.equals(newordercheck)) {
+            myList.add(str12);
+        }
+        if (!order.equals(str123) && !str123.equals(newordercheck) && !str123.equals(str12)) {
+            myList.add(str123);
+        }
+        if (!order.equals(str23) && !str23.equals(str12) && !str23.equals(str123) && !str23.equals(newordercheck)) {
+            myList.add(str23);
+        }
+        if (!order.equals(str234) && !str234.equals(str12) && !str234.equals(str123) && !str234.equals(newordercheck) && !str234.equals(str23)) {
+            myList.add(str234);
+        }
+        if (!order.equals(str34) && !str34.equals(str12) && !str34.equals(str123) && !str34.equals(newordercheck) && !str34.equals(str23) && !str34.equals(str234)) {
+            myList.add(str34);
+        }
         List<Y2050> results = new ArrayList<>();
         for (int i = 0; i < myList.size(); i++) {
             Query query = em.createNativeQuery("SELECT * FROM Y2050 WHERE myorder ='" + myList.get(i) + "'", Y2050.class);

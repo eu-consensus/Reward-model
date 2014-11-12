@@ -164,22 +164,10 @@ public class paretoMethods {
                     if (bigger) {
                         theList.get(j).setDominated(theList.get(j).getDominated() + 1);
 
-                        /*  System.out.println("bigger");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) { 
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }*/
                     }
                     if (smaller) {
                         theList.get(i).setDominated(theList.get(i).getDominated() + 1);
-                        /* System.out.println("smaller");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) {
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }
-                         */
+                     
                     }
                 }
             }
@@ -303,22 +291,10 @@ public class paretoMethods {
                         if (bigger) {
                             temp.get(j).setDominatedbycategory(temp.get(j).getDominatedbycategory() + 1);
 
-                            /*  System.out.println("bigger");
-                             for (int w = 0; w < theList.get(i).getData().length; w++) { 
-                             System.out.print(theList.get(i).getData()[w]);
-                             System.out.print(theList.get(j).getData()[w]);
-                             System.out.println();
-                             }*/
                         }
                         if (smaller) {
                             temp.get(i).setDominatedbycategory(temp.get(i).getDominatedbycategory() + 1);
-                            /* System.out.println("smaller");
-                             for (int w = 0; w < theList.get(i).getData().length; w++) {
-                             System.out.print(theList.get(i).getData()[w]);
-                             System.out.print(theList.get(j).getData()[w]);
-                             System.out.println();
-                             }
-                             */
+                            
                         }
                     }
                 }
@@ -355,9 +331,7 @@ public class paretoMethods {
     public static boolean[] minmax(String minmaxstr) {
         char[] minmaxc = minmaxstr.toCharArray();
         boolean[] minmax = new boolean[minmaxc.length];
-       /* for (int i = 0; i < minmax.length; i++) {
-            minmax[i] = false;
-        }*/
+       
         int u=0;
         for (int i = 0; i < minmaxc.length; i++) {
             if (minmaxc[i] == '+') {
@@ -417,23 +391,12 @@ public class paretoMethods {
                     if (bigger) {
                         theList.get(j).setDominated(theList.get(j).getDominated() + 1);
                         theList.get(j).setSi(theList.get(i).getPolicyName());
-                        /*  System.out.println("bigger");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) { 
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }*/
+                       
                     }
                     if (smaller) {
                         theList.get(i).setDominated(theList.get(i).getDominated() + 1);
                         theList.get(i).setSi(theList.get(j).getPolicyName());
-                        /* System.out.println("smaller");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) {
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }
-                         */
+                       
                     }
                 }
             }
@@ -579,23 +542,12 @@ public class paretoMethods {
                     if (bigger) {
                         theList.get(j).setDominated(theList.get(j).getDominated() + 1);
                         theList.get(i).setSi(theList.get(j).getPolicyName());
-                        /*  System.out.println("bigger");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) { 
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }*/
+                      
                     }
                     if (smaller) {
                         theList.get(i).setDominated(theList.get(i).getDominated() + 1);
                         theList.get(j).setSi(theList.get(i).getPolicyName());
-                        /* System.out.println("smaller");
-                         for (int w = 0; w < theList.get(i).getData().length; w++) {
-                         System.out.print(theList.get(i).getData()[w]);
-                         System.out.print(theList.get(j).getData()[w]);
-                         System.out.println();
-                         }
-                         */
+                        
                     }
                 }
             }
@@ -628,7 +580,6 @@ public class paretoMethods {
                 policy temp = myList.get(key);
                 if (temp.getNi() == 0) {
                     temp.setRank(rank);
-                    System.out.print(rank);
                     fList.add(temp);
                     myList.remove(key);
                 }
